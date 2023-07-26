@@ -11,7 +11,7 @@
   </div>
   <div>
     <h4 :style="스타일">{{product[1]}}</h4>
-    <p>{{price1}}  만원</p>
+    <p>{{price1}}  만ddd원</p>
   </div> 
 </template>
 
