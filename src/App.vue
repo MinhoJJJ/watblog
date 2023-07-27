@@ -3,38 +3,94 @@
 
   <!-- <div class="menu"><a v-for="(a,i) in menubar" :key="i">{{ a }}{{product[i]}}</a></div> -->
   <!-- <button v-on:click="police++">허위매물신고</button> <span>신고수: {{ police }}</span> -->
+  <!-- <button @mouseover="police++">허위매물신고</button> <span>신고수: {{ police }}</span> -->
+  <!-- <button @input="police++">허위매물신고</button> <span>신고수: {{ police }}</span> -->
 
-  <div class="menu"><a v-for="a in menubar" :key="a">{{ a }}</a></div>
-  <div>
-    {{product[0]}}  
-    <p>{{price[0]}}</p>
-    <button @click="police++">허위매물신고</button> <span>신고수: {{ police }}</span>
+  <!-- <div class="menu"><a v-for="a in menubar" :key="a">{{ a }}</a></div>
+  <div v-for="(a,i) in product" :key="i">
+    {{product[i]}}
+    <p>{{price[i]}}</p>
+    <p><button @click="plus(i)">허위매물신고</button> <span>신고수: {{ police[i] }}</span></p>
+  </div> -->
+
+  <div class="black-bg" v-if="modalStatus == 1">
+    <div class="white-bg">
+      <h4>{{vueDongSan[modalIndex].content}}</h4>
+      <p>상세페이지 내용임</p>
+      <p><button @click="hideModal">닫기</button></p>
+    </div>
   </div>
+<!-- 속성은 {{}}, 내용은 : -->
+  <div class="menu"><a v-for="a in menubar" :key="a">{{ a }}</a></div>
+  <div v-for="(a,i) in vueDongSan" :key="i">
+    <img :src= "vueDongSan[i].image" class="room-img">
+    <p @click="showModal(i)">{{vueDongSan[i].title}}</p>
+    <p>{{vueDongSan[i].price}}</p>
+  </div>
+
 
 
 </template>
 
 <script>
 
+import vueDongSan from './assets/data.js';
 export default {
   name: 'App',
-  data(){
+  data(){  // state라고 부름
       return{
-        price1: 60,  //하드코딩하면 나중에 변경어려워서 데이터 바인딩하고, 실시간 자동 렌더링 쓰려면 이렇게해야함
-        price2: 70,
-        police: 0,
+        vueDongSan: vueDongSan,
+        modalStatus: 0,
+        modalIndex: 0,
         스타일 : 'color : red',
         menubar : ['Home','Products','Price'],
         product : ['역삼동 원룸', '천호동 원룸','마포구 원룸'],
-        price   : ['50만원','60만원','70만원'],
       }
     },
+  methods: {
+    plus(i){
+      this.police[i]++;
+    },
+    showModal(index){
+      this.modalIndex=index;
+      this.modalStatus=1;
+    },
+    hideModal(){
+      this.modalStatus=0;
+    },
+    getImageSrc(index) {
+      // Assuming your image files are named as "room0.jpg", "room1.jpg", ...
+      var number=index.toString();
+      return "./assets/room"+number+".jpg";
+    },
+  },
   components: {
   }
 }
 </script>
 
 <style>
+body{
+  margin: 0;
+}
+div {
+  box-sizing: border-box;
+}
+.black-bg {
+  width: 100%; height:100%;
+  background: rgba(0,0,0,0.5);
+  position: fixed; padding: 20px;
+}
+.white-bg {
+  width: 100%; background: white;
+  border-radius: 8px;
+  padding: 20px;
+}  
+
+.room-img{
+  width: 40%;
+  margin-top: 40px;
+}
 .menu{
   background: darkgoldenrod;
   padding: 15px;
