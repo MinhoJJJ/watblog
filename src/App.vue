@@ -13,10 +13,21 @@
     <p><button @click="plus(i)">허위매물신고</button> <span>신고수: {{ police[i] }}</span></p>
   </div> -->
 
+  <div v-if="1==1">
+      안녕하세요.
+  </div>
+  <div v-else-if="1==3">
+      안녕안하세요
+  </div>
+  <div v-else>
+      안녕안하세요
+  </div>
+
   <div class="black-bg" v-if="modalStatus == 1">
     <div class="white-bg">
+      <h4>{{vueDongSan[modalIndex].title}}</h4>
       <h4>{{vueDongSan[modalIndex].content}}</h4>
-      <p>상세페이지 내용임</p>
+      {{vueDongSan[modalIndex].price}}
       <p><button @click="hideModal">닫기</button></p>
     </div>
   </div>
