@@ -20,6 +20,26 @@
       안녕안하세요
   </div> -->
 
+
+    <div class="start" :class="{end : modalStatus==1}">
+    .start{
+  opacity: 0;
+  transition:  all 1s;
+}
+.end{
+  opacity: 1;
+}
+
+
 1. <!-- 속성은 {{}}, 내용은 : -->
 2. 컴포넌트는 긴 html을 줄이는 것을 말함
 3. <!-- 속성은 {{}}, 내용은 : -->
+4. props로 숫자보낼려면 :number="1231212" 그냥 number="46546"로 하면 문자열로 감
+5.   <DiscountModal v-bind="오브젝트"/> 하면 오브젝트 속성별로 들어감
+6. $emit() : 부모에게 요청보내는 이벤트요소
+7.       <input @input="calPrice(inputValue)" v-model="inputValue">
+8. select, textarea 전부 v-model 사용 가능
+
+
+
+custom event,이벤트 버블링

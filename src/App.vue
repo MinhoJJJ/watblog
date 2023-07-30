@@ -2,10 +2,23 @@
   <img alt="Vue logo" src="./assets/logo.png">
 
   <div class="menu"><a v-for="a in menubar" :key="a">{{ a }}</a></div>
-
-  <Modal :vueDongSan="vueDongSan" :modalStatus="modalStatus" :modalIndex="modalIndex" @hideModal="hideModal"/>
-  <ShowPage :vueDongSan="vueDongSan" @showModal="showModal"/>
   <DiscountModal/>
+  <select @change="handleSortOption">
+    <option value="default">원래대로 돌리기</option>
+    <option value="high">가격순 높은순 정렬</option>
+    <option value="low">가격순 낮은순정렬</option>
+    <option value="alphabetical">가나다라 정렬</option>
+  </select>
+  <button @click="sortPrice()">가격순 정렬</button>
+  <button @click="sortBack()">원래대로 돌리기</button>
+
+
+  <transition name="fade">
+    <Modal :vueDongSan="vueDongSan" :modalStatus="modalStatus" :modalIndex="modalIndex" @hideModal="hideModal"/>
+  </transition>
+
+  <ShowPage @openModal="showModal($event)" :vueDongSan="vueDongSan" @showModal="showModal"/>
+  
 
 </template>
 
@@ -21,6 +34,7 @@ export default {
   name: 'App',
   data(){  // state라고 부름
       return{
+        vueDongSanBackUp: [...vueDongSan],
         vueDongSan: vueDongSan,
         modalStatus: 0,
         modalIndex: 0,
@@ -45,6 +59,33 @@ export default {
     hideModal() {
       this.modalStatus = 0;
     },
+    sortPrice() {
+      // this.vueDongSan.sort((a, b) => a.price - b.price);
+      this.vueDongSan.sort(function(a,b){
+          return a.price-b.price;
+      });
+
+      this.vueDongSan.sort();
+    },
+    sortBack() {
+      this.vueDongSan=[...this.vueDongSanBackUp];
+    },
+    handleSortOption(event){
+      const selectedOption = event.target.value;
+      if(selectedOption=='low'){
+        this.sortPrice();
+      }else if(selectedOption=='high'){
+        this.vueDongSan.sort(function(a,b){
+          return b.price-a.price;
+        });
+      }else if(selectedOption=='alphabetical'){
+        this.vueDongSan.sort(function(a,b){
+          return a.title.localeCompare(b.title);
+        });
+      }else if(selectedOption=='default'){
+        this.sortBack();
+      }
+    }
   },
   components: {
     Modal: Modal,
@@ -82,6 +123,28 @@ div {
   text-align: center;
   color: #2c3e50;
   margin-top: 60px;
+}
+.fade-enter-from{
+  opacity: 0;
+  transform:  translateY(-1000px);
+}
+.fade-enter-active{
+    transition:  all 1s;
+}
+.fade-enter-to{
+  opacity: 1;
+  transform:  translateY(0px);
+
+}
+
+.fade-leave-from{
+  opacity: 1;
+}
+.fade-leave-active{
+    transition:  all 1s;
+}
+.fade-leave-to{
+  opacity: 0;
 }
 
 </style>
