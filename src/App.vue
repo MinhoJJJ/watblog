@@ -10,7 +10,7 @@
     <option value="alphabetical">가나다라 정렬</option>
   </select>
   <button @click="sortPrice()">가격순 정렬</button>
-  <button @click="sortBack()">원래대로 돌리기</button>
+  <button @click="sortBack()">원래대로 돌dd리기</button>
 
 
   <transition name="fade">
