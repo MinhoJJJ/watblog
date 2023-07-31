@@ -10,7 +10,7 @@
     <option value="alphabetical">가나다라 정렬</option>
   </select>
   <button @click="sortPrice()">가격순 정렬</button>
-  <button @click="sortBack()">원래대로 돌dd리기</button>
+  <button @click="sortBack()">원래대로 돌리기</button>
 
 
   <transition name="fade">
@@ -18,6 +18,10 @@
   </transition>
 
   <ShowPage @openModal="showModal($event)" :vueDongSan="vueDongSan" @showModal="showModal"/>
+
+    <div v-for="(a,i) in people" :key="i">
+    <p >안녕하세요 {{i+1}}번째 사람 {{a}} 입니다.</p>
+  </div>
   
 
 </template>
@@ -39,6 +43,7 @@ export default {
         modalStatus: 0,
         modalIndex: 0,
         스타일 : 'color : red',
+        people : ['철수','영희','마이클','잭','맥'],
         menubar : ['Home','Products','Price'],
         product : ['역삼동 원룸', '천호동 원룸','마포구 원룸'],
       }

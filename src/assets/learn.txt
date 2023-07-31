@@ -10,6 +10,14 @@
     <p><button @click="plus(i)">허위매물신고</button> <span>신고수: {{ police[i] }}</span></p>
   </div> -->
 
+  <div v-for="a in 5" :key="a">
+    <p >안녕하세요</p>
+  </div>
+
+   <div v-for="(a,i) in 5" :key="i">
+    <p >안녕하세요 {{i}}번째 사람 입니다.</p>
+  </div>
+
   <!-- <div v-if="1==1">
       안녕하세요.
   </div>
