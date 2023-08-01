@@ -2,7 +2,7 @@
   <img alt="Vue logo" src="./assets/logo.png">
 
   <div class="menu"><a v-for="a in menubar" :key="a">{{ a }}</a></div>
-  <DiscountModal/>
+  <DiscountModal v-if="showDiscount==true" :discountNum="discountNum"/>
   <select @change="handleSortOption">
     <option value="default">원래대로 돌리기</option>
     <option value="high">가격순 높은순 정렬</option>
@@ -38,6 +38,8 @@ export default {
   name: 'App',
   data(){  // state라고 부름
       return{
+        discountNum: 30,
+        showDiscount : true,
         vueDongSanBackUp: [...vueDongSan],
         vueDongSan: vueDongSan,
         modalStatus: 0,
@@ -92,6 +94,18 @@ export default {
       }
     }
   },
+  // created(){}
+  // beforemounted(){}
+  mounted(){
+    //setTimeout(()=>{this.showDiscount=false},2000);   // 에로우 펑션
+    setInterval(()=>{
+      if(this.discountNum>0){
+        this.discountNum=this.discountNum-1;
+      }
+    },1000);   // 에로우 펑션
+  
+  },
+
   components: {
     Modal: Modal,
     DiscountModal: DiscountModal,

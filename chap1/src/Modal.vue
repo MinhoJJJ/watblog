@@ -36,7 +36,13 @@ export default {
       closeModal() {
         this.$emit('hideModal'); // 이벤트를 발생시켜 부모로 변경 요청
       },
-    }
+    },
+    updated(){
+      if(this.inputValue==2){
+        alert("마 밥묵읐나");
+        this.inputValue=9999;
+      }
+    },
 }
 </script>
 
