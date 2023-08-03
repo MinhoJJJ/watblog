@@ -1,10 +1,7 @@
 <template>
   <div>
-    gd
-    <Post/>
-    <Post/>
+    {{insta[0].name}}
     <Post :insta="insta"/>
-    {{insta.name[0]}}
 </div>
 </template>
 

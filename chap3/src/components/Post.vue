@@ -8,13 +8,17 @@
     <div class="post-content">
       <p>43 Likes</p>
       <p><strong>글쓴이아이디</strong> 임시내용</p>
+      {{insta[0].name}}
+
       <p class="date">May 15</p>
+      
     </div>
 </div> 
 </template>
 
 <script>
 export default {
+  name: 'Post',
     props:{
       insta:Array,
   },
