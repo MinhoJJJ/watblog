@@ -8,6 +8,8 @@
     </ul>
     <img src="./assets/logo.png" class="logo" />
   </div>
+  <router-view></router-view>
+
   <Container :insta="insta" />
 
 
