@@ -9,8 +9,8 @@
     <img src="./assets/logo.png" class="logo" />
   </div>
   
-
   <Container :insta="insta" />
+
 
   <div class="footer">
     <ul class="footer-button-plus">
