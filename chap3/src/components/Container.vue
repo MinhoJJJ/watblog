@@ -4,36 +4,50 @@
       <Post :insta="insta[i]" v-for="(a,i) in insta" :key="i"/>  
     </div>
     <!-- 필터선택페이지  vue3부터는 v-for, v-if 같이 못씀 -->
-  <div class="upload-image"></div>
-  <div class="filters">
-    <div class="filter-1" v-if="step==1"></div>
-    <div class="filter-1" v-if="step==1"></div>
-    <div class="filter-1" v-if="step==1"></div>
-    <div class="filter-1" v-if="step==1"></div>
-    <div class="filter-1" v-if="step==1"></div>
+    <div v-if="step==1">
+      <!-- <div class="filter-1" :style="{ backgroundImage: 'url(' + url + ')' }" v-if="step==1"></div> -->
+      <div :class="myFilter + ' upload-image'" :style="`background-Image: url(${url})`" v-if="step==1"></div>
+      {{ myFilter }}
+      <div class="filters">
+        <FilterBox :filter="filter" :url="url" v-for="filter in FilterSource" :key="filter">
+          {{filter}}  <!--<template v-slot:a>데이터</template> <slot :msg="msg">-->
+        </FilterBox>
+      </div>
+    </div>
   </div>
 
 <!-- 글작성페이지 -->
   <div v-if="step==2">
     <div class="upload-image"></div>
     <div class="write">
-      <textarea class="write-box">write!</textarea>
+      <textarea @input="$emit('write', $event.target.value)" class="write-box">write!</textarea> 
     </div>
-  </div>
-
 </div>
 </template>
 
 <script>
 import Post from './Post.vue';
+import FilterBox from './FilterBox.vue';
+import FilterSource from './filter.js';
+
+
 export default {
     name: 'Container',
     components: {
-    Post: Post,
-  },
-  props:{
-      insta:Array,
-      step:Number,
+      Post: Post,
+      FilterBox: FilterBox,
+    },
+    props:{
+        insta:Array,
+        step:Number,
+        url:String,
+        myFilter:String,
+
+    },
+    data(){
+    return{
+      FilterSource: FilterSource,
+    }
   },
 }
 </script>

@@ -1,15 +1,18 @@
 <template>
+  <div>{{ $store.state.name }}</div>
+  <button @click="$store.state.name=`qark`" >qjxms</button>
 <div class="header">
     <ul class="header-button-left">
       <li>Cancel</li>
     </ul>
     <ul class="header-button-right">
-      <li>Next</li>
+      <li v-if="step==0" @click="step++;">Next</li>
+      <li v-if="step==2" @click="publish">발행</li>
     </ul>
     <img src="./assets/logo.png" class="logo" />
   </div>
   
-  <Container :insta="insta" :step="step"/>
+  <Container :insta="insta" :step="step" :url="url" @write="작성한글 = $event" :myFilter="myFilter"/>
   <button @click='more()'>더보기</button>
 
   <!-- <div v-if="step==0">내용0</div>
@@ -17,11 +20,22 @@
   <div v-if="step==2">내용2</div>
   <button @click="step=0">버튼0</button>
   <button @click="step=1">버튼1</button>
-  <button @click="step=2">버튼2</button> -->
+  <button @click="step=2">버튼2</button> 
+
+  파일 업로드 방식
+  1. FileReader()
+  2. URL.createObjectURL()
+  바이너리 데이터를 다룰땐 blob을 사용
+
+  멀티 선택가능
+  <input @change="upload" multiple accept="iamage/* "type="file" id="file" class="inputfile" />
+
+
+-->
 
   <div class="footer">
     <ul class="footer-button-plus">
-      <input type="file" id="file" class="inputfile" />
+      <input @change="upload" type="file" id="file" class="inputfile" />
       <label for="file" class="input-plus">+</label>
     </ul>
  </div>
@@ -42,8 +56,15 @@ export default {
     return{
       step: 0,
       insta:insta,
-      cnt:0
+      cnt:0,
+      url: "",
+      myFilter:"",
     }
+  },
+  mounted(){
+    this.emitter.on('shoot',(a) =>{
+      this.myFilter=a;
+    });
   },
   methods : {
     // more(){
@@ -69,7 +90,28 @@ export default {
         this.insta.push(data.data);
         this.cnt++;
       })
- } 
+    },
+    upload(e){
+      let fileList= e.target.files
+      let url=URL.createObjectURL(fileList[0]);
+      this.url=url;
+      this.step=1;
+    },
+    publish(){
+      var 내게시물 = {
+        name: "Kim Hyun",
+        userImage: "https://picsum.photos/100?random=1",
+        postImage: this.이미지,
+        likes: 36,
+        date: "May 15",
+        liked: false,
+        content: this.작성한글,
+        filter: "perpetua"
+    };
+        this.insta.unshift(내게시물);
+       this.step = 0;
+    },
+
   }
 }
 </script>

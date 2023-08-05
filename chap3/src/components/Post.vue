@@ -2,14 +2,13 @@
   <div class="post">
     <div class="post-header">
       <div class="profile"></div>
-      <span class="profile-name">{{insta.name}}</span>
+      <span class="profile-name">ChanKim</span>
     </div>
     <div class="post-body"></div>
     <div class="post-content">
-      <p>{{insta.likes}}Likes</p>
-      <p><strong>{{insta.name}}</strong> {{insta.content}}</p>
-      <p class="date">{{insta.date}}</p>
-      
+      <p>{{ insta.likes }} likes</p>
+      <p><strong>{{insta.name}}</strong>{{insta.content}}</p>
+      <p class="date">May 15</p>     
     </div>
 </div> 
 </template>
@@ -21,6 +20,8 @@ export default {
       insta:Array,
   },
 }
+//:style="background-image : url(insta.postImage)"
+// :style="{backgroundImage : `url(${insta.postImage})`}"
 </script>
 
 <style>
