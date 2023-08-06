@@ -1,13 +1,15 @@
 <template>
   <div class="post">
     <div class="post-header">
-      <div class="profile"></div>
-      <span class="profile-name">ChanKim</span>
+      <div class="profile" ></div>
+      <span class="profile-name">{{insta.name}}</span>
     </div>
-    <div class="post-body"></div>
+    <div @click="$store.commit('changeLike')" :class="insta.filter" class="post-body" 
+    :style="{backgroundImage : `url(${insta.postImage})` }">
+    </div>
     <div class="post-content">
-      <p>{{ insta.likes }} likes</p>
-      <p><strong>{{insta.name}}</strong>{{insta.content}}</p>
+      <p>{{ $store.state.like }} likes</p>
+      <p><strong>{{insta.name}}</strong> {{insta.content}}</p>
       <p class="date">May 15</p>     
     </div>
 </div> 
@@ -27,6 +29,9 @@ export default {
 <style>
 .post {
   width: 100%;
+}
+.background-image{
+  cursor: pointer;
 }
 .profile {
   background-image: url("https://picsum.photos/100?random=0");

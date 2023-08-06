@@ -1,6 +1,4 @@
 <template>
-  <div>{{ $store.state.name }}</div>
-  <button @click="$store.state.name=`qark`" >qjxms</button>
 <div class="header">
     <ul class="header-button-left">
       <li>Cancel</li>
@@ -13,7 +11,12 @@
   </div>
   
   <Container :insta="insta" :step="step" :url="url" @write="작성한글 = $event" :myFilter="myFilter"/>
-  <button @click='more()'>더보기</button>
+  <button @click="$store.commit('changeAge',10)">더보기22</button>
+  <button @click='more()'>더보기</button>{{ $store.state.age }}
+  {{ $store.state.more }}gd
+  <button @click="$store.dispatch('getData')">더보기2</button>
+
+
 
   <!-- <div v-if="step==0">내용0</div>
   <div v-if="step==1">내용1</div>
