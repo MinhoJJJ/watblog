@@ -4,50 +4,38 @@
       <li>Cancel</li>
     </ul>
     <ul class="header-button-right">
-      <li v-if="step==0" @click="step++;">Next</li>
-      <li v-if="step==2" @click="publish">발행</li>
+      <li>Next</li>
     </ul>
     <img src="./assets/logo.png" class="logo" />
   </div>
   
-  <Container :insta="insta" :step="step" :url="url" @write="작성한글 = $event" :myFilter="myFilter"/>
-  <button @click="$store.commit('changeAge',10)">더보기22</button>
-  <button @click='more()'>더보기</button>{{ $store.state.age }}
-  {{ $store.state.more }}gd
-  <button @click="$store.dispatch('getData')">더보기2</button>
-
-
+  <Container :insta="insta" :step="step"/>
+  <button @click='more()'>더보기</button>
 
   <!-- <div v-if="step==0">내용0</div>
-  <div v-if="step==1">내용1</div>
-  <div v-if="step==2">내용2</div>
+  <div v-if="step==1">켜져있습니다.</div>
+  <div v-if="step==2">꺼져있습니다.</div>
   <button @click="step=0">버튼0</button>
   <button @click="step=1">버튼1</button>
-  <button @click="step=2">버튼2</button> 
-
-  파일 업로드 방식
-  1. FileReader()
-  2. URL.createObjectURL()
-  바이너리 데이터를 다룰땐 blob을 사용
-
-  멀티 선택가능
-  <input @change="upload" multiple accept="iamage/* "type="file" id="file" class="inputfile" />
-
-
--->
+  <button @click="step=2">버튼2</button> -->
 
   <div class="footer">
     <ul class="footer-button-plus">
-      <input @change="upload" type="file" id="file" class="inputfile" />
+      <input type="file" id="file" class="inputfile" />
       <label for="file" class="input-plus">+</label>
     </ul>
  </div>
+ <p>{{now2()}}  , {{cnt}}</p>
+ <p>{{now}}  , 계산결과라서 () 안씀</p>
+ <button @click="cnt++">응애추가</button>
+ <!-- "store.commit('증가',10))" -->
 </template>
 
 <script>
 import Container from './components/Container.vue';
 import insta from './components/data.js';
 import axios from 'axios'
+import {mapMutations, mapState} from 'vuex'
 
 
 export default {
@@ -59,22 +47,16 @@ export default {
     return{
       step: 0,
       insta:insta,
-      cnt:0,
-      url: "",
-      myFilter:"",
+      cnt:0
     }
   },
-  mounted(){
-    this.emitter.on('shoot',(a) =>{
-      this.myFilter=a;
-    });
-  },
+
   methods : {
+      ...mapMutations(['more']),
     // more(){
     //   if(this.cnt==0){
     //       axios.get('https://codingapple1.github.io/vue/more0.json')       //axios.post ('URL', 보낼 데이터)  post는 내가 보내고싶은것을 보냄  .then은 성공시,  .catch는 실패시
     //       .then((data)=>{   //.then(function(data){
-    //       console.log(data);
     //       this.insta.push(data.data);
     //    })
     //   }
@@ -94,27 +76,18 @@ export default {
         this.cnt++;
       })
     },
-    upload(e){
-      let fileList= e.target.files
-      let url=URL.createObjectURL(fileList[0]);
-      this.url=url;
-      this.step=1;
-    },
-    publish(){
-      var 내게시물 = {
-        name: "Kim Hyun",
-        userImage: "https://picsum.photos/100?random=1",
-        postImage: this.이미지,
-        likes: 36,
-        date: "May 15",
-        liked: false,
-        content: this.작성한글,
-        filter: "perpetua"
-    };
-        this.insta.unshift(내게시물);
-       this.step = 0;
+    now2(){
+      return new Date();
     },
 
+  },
+  // 뷰 파일이 첫 로드 됬을때만 뜸
+  // 일반적으로 state도 computed에 담아서 씀
+  computed : {  
+    now(){
+      return new Date();
+    },
+    ...mapState([name]),
   }
 }
 </script>
