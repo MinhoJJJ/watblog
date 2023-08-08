@@ -39,13 +39,14 @@ import {mapMutations, mapState} from 'vuex'
 
 
 export default {
+  // component, computed 이런게 있는건 optionAPI
   name: 'App',
   components: {
     Container: Container,
   },
   data(){
     return{
-      step: 0,
+      step: 3,
       insta:insta,
       cnt:0
     }
